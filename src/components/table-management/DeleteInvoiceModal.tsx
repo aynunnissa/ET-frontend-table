@@ -2,7 +2,7 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import { Button } from '@mui/material';
+import { Button, Stack } from '@mui/material';
 
 const style = {
   position: 'absolute',
@@ -39,8 +39,10 @@ export default function DeleteInvoiceModal({ id, open, handleClose, handleDelete
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
             This invoice will be permanently deleted from your data.
           </Typography>
-          <Button variant='contained' color='error' onClick={() => handleDelete(id)}>Yes, Delete</Button>
-          <Button variant='outlined' color='secondary' onClick={handleClose}>No, Cancel</Button>
+          <Stack mt={2} direction="row" columnGap={2}>
+            <Button variant='contained' color='error' onClick={() => handleDelete(id)}>Yes, Delete</Button>
+            <Button variant='outlined' color='secondary' onClick={handleClose}>No, Cancel</Button>
+          </Stack>
         </Box>
       </Modal>
     </div>
