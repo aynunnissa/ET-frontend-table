@@ -1,6 +1,7 @@
 import { SelectChangeEvent } from '@mui/material';
 import { useState } from 'react';
 
+// eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
 const useInput = (validateValue: Function) => {
   const [enteredValue, setEnteredValue] = useState<string>('');
   const [isTouched, setIsTouched] = useState<boolean>(false);

@@ -15,7 +15,7 @@ interface IProps {
   error: boolean
 }
 
-export default function GetUsers({ data, error }: IProps) {
+export default function GetUsers({ data }: IProps) {
   return (
     <Container>
       <Box py={4}>
