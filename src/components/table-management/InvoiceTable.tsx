@@ -81,7 +81,7 @@ interface NewInvoiceItem {
 export default function InvoiceTable() {
   const [originalData, setOriginalData] = useState(invoices); 
   const [data, setData] = useState(invoices);
-  const [open, setOpen] = useState(false);
+  const [openDelete, setOpenDelete] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
   const [openAdd, setOpenAdd] = useState(false);
   const [activeID, setActiveID] = useState<null | number>(null);
@@ -91,17 +91,17 @@ export default function InvoiceTable() {
     setOpenAdd(isOpen);
   }
 
-  const handleOpen = (id: number) => {
-    setOpen(true);
-    setActiveID(id);
-  };
-  const handleClose = () => setOpen(false);
-
   const handleOpenEdit = (invoice: InvoiceItem) => {
     setEditInvoice(invoice)
     setOpenEdit(true);
   };
   const handleCloseEdit = () => setOpenEdit(false);
+
+  const handleOpenDelete = (id: number) => {
+    setOpenDelete(true);
+    setActiveID(id);
+  };
+  const handleCloseDelete = () => setOpenDelete(false);
 
   const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
     const query = e.target.value?.toLowerCase();
@@ -121,14 +121,14 @@ export default function InvoiceTable() {
     handleCloseEdit();
   }
 
-  const handleAddNew = (newItem: NewInvoiceItem) => {
+  const handleAdd = (newItem: NewInvoiceItem) => {
     const latestId = invoices[invoices.length - 1].id + 1;
     const newInvoice:InvoiceItem = {
       id: latestId,
       name: newItem.name,
       date: newItem.date,
       due_date: newItem.due_date,
-      total: newItem.name,
+      total: newItem.total,
       balance: newItem.balance,
     }
 
@@ -139,7 +139,7 @@ export default function InvoiceTable() {
 
   const handleDelete = (id: number | null) => {
     if (!id) return;
-    handleClose();
+    handleCloseDelete();
 
     const updatedData = originalData.filter(item => item.id !== id);
     setData(updatedData);
@@ -163,7 +163,7 @@ export default function InvoiceTable() {
         />
         <Button sx={{ mb: { xs: 2, md: 0} }} variant="contained" onClick={() => handleOpenAddModal(true)}><AddIcon sx={{ mr: 1 }} /> Add new invoice</Button>
       </Stack>
-      <Typography variant='body1' component="p">Total: {originalData.length}</Typography>
+      <Typography variant='body1' component="p">Total: {data.length}</Typography>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
@@ -197,7 +197,7 @@ export default function InvoiceTable() {
                   <TableCell align="center">
                     <Stack direction="row" gap={2} justifyContent="center">
                       <EditIcon color='primary' sx={{ cursor: 'pointer' }} onClick={() => handleOpenEdit(row)} />
-                      <DeleteIcon onClick={() => handleOpen(row.id)} color='error' sx={{ cursor: 'pointer' }} />
+                      <DeleteIcon onClick={() => handleOpenDelete(row.id)} color='error' sx={{ cursor: 'pointer' }} />
                     </Stack>
                   </TableCell>
                 </TableRow>
@@ -206,9 +206,9 @@ export default function InvoiceTable() {
           </TableBody>
         </Table>
       </TableContainer>
-      <AddInvoiceModal open={openAdd} handleAddInvoice={handleAddNew} handleClose={() => handleOpenAddModal(false)} />
+      <AddInvoiceModal open={openAdd} handleAddInvoice={handleAdd} handleClose={() => handleOpenAddModal(false)} />
       {editInvoice && <EditInvoiceModal handleEdit={handleEdit} open={openEdit} handleClose={handleCloseEdit} {...editInvoice} />}
-      <DeleteInvoiceModal id={activeID} open={open} handleClose={handleClose} handleDelete={handleDelete} />
+      <DeleteInvoiceModal id={activeID} open={openDelete} handleClose={handleCloseDelete} handleDelete={handleDelete} />
     </Box>
     
   );
