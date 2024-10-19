@@ -78,50 +78,80 @@ export default function EditInvoiceModal(props: Readonly<IProps>) {
           <Stack rowGap={2}>
             <TextField 
               fullWidth 
-              label="fullWidth" 
-              id="fullWidth" 
+              label="Name" 
+              id="name" 
               value={name.value}
               onBlur={name.inputBlurHandler}
               onChange={name.valueChangeHandler}
               error={name.hasError}
+              helperText={`${name.hasError ? 'Name cannot be empty' : ''}`}
+              slotProps={{
+                inputLabel: {
+                  shrink: true,
+                },
+              }}
             />
             <TextField 
               type='date'
               fullWidth 
-              label="fullWidth" 
-              id="fullWidth" 
+              label="Date" 
+              id="date" 
               value={date.value}
               onBlur={date.inputBlurHandler}
               onChange={date.valueChangeHandler}
               error={date.hasError}
+              helperText={`${date.hasError ? 'Date cannot be empty' : ''}`}
+              slotProps={{
+                inputLabel: {
+                  shrink: true,
+                },
+              }}
             />
             <TextField 
               type='date'
               fullWidth 
-              label="fullWidth" 
-              id="fullWidth" 
+              label="Due Date" 
+              id="due_date" 
               value={due_date.value}
               onBlur={due_date.inputBlurHandler}
               onChange={due_date.valueChangeHandler}
               error={due_date.hasError}
+              helperText={`${due_date.hasError ? 'Due Date cannot be empty' : ''}`}
+              slotProps={{
+                inputLabel: {
+                  shrink: true,
+                },
+              }}
             />
             <TextField 
               fullWidth 
-              label="fullWidth" 
-              id="fullWidth" 
+              label="Total" 
+              id="total" 
               value={total.value}
               onBlur={total.inputBlurHandler}
               onChange={total.valueChangeHandler}
               error={total.hasError}
+              helperText={`${total.hasError ? 'Total cannot be empty' : ''}`}
+              slotProps={{
+                inputLabel: {
+                  shrink: true,
+                },
+              }}
             />
             <TextField 
               fullWidth 
-              label="fullWidth" 
-              id="fullWidth" 
+              label="Balance" 
+              id="balance" 
               value={balance.value}
               onBlur={balance.inputBlurHandler}
               onChange={balance.valueChangeHandler}
               error={balance.hasError}
+              helperText={`${balance.hasError ? 'Balance cannot be empty' : ''}`}
+              slotProps={{
+                inputLabel: {
+                  shrink: true,
+                },
+              }}
             />
             <Button variant='contained' color='primary' onClick={handleSubmit}>Submit</Button>
           </Stack>
