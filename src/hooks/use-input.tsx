@@ -1,3 +1,4 @@
+import { SelectChangeEvent } from '@mui/material';
 import { useState } from 'react';
 
 const useInput = (validateValue: Function) => {
@@ -7,15 +8,15 @@ const useInput = (validateValue: Function) => {
   const valueIsValid = validateValue(enteredValue);
   const hasError = !valueIsValid && isTouched;
 
-  const valueChangeHandler = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const valueChangeHandler = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | SelectChangeEvent) => {
     setEnteredValue(event.target.value);
   };
 
   const defaultValueHandler = (value?: string) => {
-    setEnteredValue(value);
+    setEnteredValue(value ?? '');
   };
 
-  const inputBlurHandler = (event: React.SyntheticEvent): void => {
+  const inputBlurHandler = (): void => {
     setIsTouched(true);
   };
 
