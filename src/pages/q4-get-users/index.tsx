@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Box, Container, Divider, Typography } from '@mui/material';
 import UserTable from '@/components/users/UserTable';
+import { BASE_URL } from '@/lib/client';
 
 interface IData {
   id: number,
@@ -29,7 +30,7 @@ export default function GetUsers({ data }: IProps) {
 
 export async function getServerSideProps() {
   try {
-    const response = await fetch('https://gorest.co.in/public/v2/users');
+    const response = await fetch(`${BASE_URL}/users`);
 
     const errorCode = response.ok ? null : response.status;
 

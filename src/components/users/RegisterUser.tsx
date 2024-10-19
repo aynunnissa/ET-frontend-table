@@ -2,6 +2,7 @@ import { Box } from '@mui/material';
 import UserForm from '@/components/users/UserForm';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
+import { BASE_URL } from '@/lib/client';
 
 interface IUser {
   name: string,
@@ -21,7 +22,7 @@ export default function RegisterUser() {
     const token = process.env.NEXT_PUBLIC_GOREST_T;
 
     try {
-      const response = await fetch("https://gorest.co.in/public/v2/users", {
+      const response = await fetch(`${BASE_URL}/users`, {
         method: "POST",
         headers: {
           "Accept": "application/json",
